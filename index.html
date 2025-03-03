@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>To Do List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- TAILWIND & FLOWBITE -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- ChartJS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+    <!-- ALPINE JS -->
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+    <!-- boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+    <!-- STYLING -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Rubik Font */
+        .rubik-thin {
+            font-family: "Rubik", serif;
+            font-optical-sizing: auto;
+            font-weight: 300;
+            font-style: normal;
+        }
+        .rubik-regular {
+            font-family: "Rubik", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .rubik-medium {
+            font-family: "Rubik", serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+        }
+        .rubik-semibold {
+            font-family: "Rubik", serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+        }
+        .rubik-bold {
+            font-family: "Rubik", serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+        }
+        .rubik-extrabold {
+            font-family: "Rubik", serif;
+            font-optical-sizing: auto;
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        /* Monoton */
+        .monoton-regular {
+            font-family: "Monoton", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        /* Playfair */
+        .playfair-display-thin {
+            font-family: "Playfair Display", serif;
+            font-optical-sizing: auto;
+            font-weight: 300;
+            font-style: normal;
+        }
+        .playfair-display-regular {
+            font-family: "Playfair Display", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .playfair-display-medium {
+            font-family: "Playfair Display", serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+        }
+        .playfair-display-semibold {
+            font-family: "Playfair Display", serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+        }
+        .playfair-display-bold {
+            font-family: "Playfair Display", serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+        }
+        .playfair-display-extrabold {
+            font-family: "Playfair Display", serif;
+            font-optical-sizing: auto;
+            font-weight: 800;
+            font-style: normal;
+        }
+
+
+        /* Main Styling */
+        * {
+            /* border: 1px solid red !important; */
+        }
+        #bg-svg {
+            background-color: #0e002b;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 304 304' width='304' height='304'%3E%3Cpath fill='%23578bd1' fill-opacity='0.64' d='M44.1 224a5 5 0 1 1 0 2H0v-2h44.1zm160 48a5 5 0 1 1 0 2H82v-2h122.1zm57.8-46a5 5 0 1 1 0-2H304v2h-42.1zm0 16a5 5 0 1 1 0-2H304v2h-42.1zm6.2-114a5 5 0 1 1 0 2h-86.2a5 5 0 1 1 0-2h86.2zm-256-48a5 5 0 1 1 0 2H0v-2h12.1zm185.8 34a5 5 0 1 1 0-2h86.2a5 5 0 1 1 0 2h-86.2zM258 12.1a5 5 0 1 1-2 0V0h2v12.1zm-64 208a5 5 0 1 1-2 0v-54.2a5 5 0 1 1 2 0v54.2zm48-198.2V80h62v2h-64V21.9a5 5 0 1 1 2 0zm16 16V64h46v2h-48V37.9a5 5 0 1 1 2 0zm-128 96V208h16v12.1a5 5 0 1 1-2 0V210h-16v-76.1a5 5 0 1 1 2 0zm-5.9-21.9a5 5 0 1 1 0 2H114v48H85.9a5 5 0 1 1 0-2H112v-48h12.1zm-6.2 130a5 5 0 1 1 0-2H176v-74.1a5 5 0 1 1 2 0V242h-60.1zm-16-64a5 5 0 1 1 0-2H114v48h10.1a5 5 0 1 1 0 2H112v-48h-10.1zM66 284.1a5 5 0 1 1-2 0V274H50v30h-2v-32h18v12.1zM236.1 176a5 5 0 1 1 0 2H226v94h48v32h-2v-30h-48v-98h12.1zm25.8-30a5 5 0 1 1 0-2H274v44.1a5 5 0 1 1-2 0V146h-10.1zm-64 96a5 5 0 1 1 0-2H208v-80h16v-14h-42.1a5 5 0 1 1 0-2H226v18h-16v80h-12.1zm86.2-210a5 5 0 1 1 0 2H272V0h2v32h10.1zM98 101.9V146H53.9a5 5 0 1 1 0-2H96v-42.1a5 5 0 1 1 2 0zM53.9 34a5 5 0 1 1 0-2H80V0h2v34H53.9zm60.1 3.9V66H82v64H69.9a5 5 0 1 1 0-2H80V64h32V37.9a5 5 0 1 1 2 0zM101.9 82a5 5 0 1 1 0-2H128V37.9a5 5 0 1 1 2 0V82h-28.1zm16-64a5 5 0 1 1 0-2H146v44.1a5 5 0 1 1-2 0V18h-26.1zm102.2 270a5 5 0 1 1 0 2H98v14h-2v-16h124.1zM242 149.9V160h16v34h-16v62h48v48h-2v-46h-48v-66h16v-30h-16v-12.1a5 5 0 1 1 2 0zM53.9 18a5 5 0 1 1 0-2H64V2H48V0h18v18H53.9zm112 32a5 5 0 1 1 0-2H192V0h50v2h-48v48h-28.1zm-48-48a5 5 0 0 1-9.8-2h2.07a3 3 0 1 0 5.66 0H178v34h-18V21.9a5 5 0 1 1 2 0V32h14V2h-58.1zm0 96a5 5 0 1 1 0-2H137l32-32h39V21.9a5 5 0 1 1 2 0V66h-40.17l-32 32H117.9zm28.1 90.1a5 5 0 1 1-2 0v-76.51L175.59 80H224V21.9a5 5 0 1 1 2 0V82h-49.59L146 112.41v75.69zm16 32a5 5 0 1 1-2 0v-99.51L184.59 96H300.1a5 5 0 0 1 3.9-3.9v2.07a3 3 0 0 0 0 5.66v2.07a5 5 0 0 1-3.9-3.9H185.41L162 121.41v98.69zm-144-64a5 5 0 1 1-2 0v-3.51l48-48V48h32V0h2v50H66v55.41l-48 48v2.69zM50 53.9v43.51l-48 48V208h26.1a5 5 0 1 1 0 2H0v-65.41l48-48V53.9a5 5 0 1 1 2 0zm-16 16V89.41l-34 34v-2.82l32-32V69.9a5 5 0 1 1 2 0zM12.1 32a5 5 0 1 1 0 2H9.41L0 43.41V40.6L8.59 32h3.51zm265.8 18a5 5 0 1 1 0-2h18.69l7.41-7.41v2.82L297.41 50H277.9zm-16 160a5 5 0 1 1 0-2H288v-71.41l16-16v2.82l-14 14V210h-28.1zm-208 32a5 5 0 1 1 0-2H64v-22.59L40.59 194H21.9a5 5 0 1 1 0-2H41.41L66 216.59V242H53.9zm150.2 14a5 5 0 1 1 0 2H96v-56.6L56.6 162H37.9a5 5 0 1 1 0-2h19.5L98 200.6V256h106.1zm-150.2 2a5 5 0 1 1 0-2H80v-46.59L48.59 178H21.9a5 5 0 1 1 0-2H49.41L82 208.59V258H53.9zM34 39.8v1.61L9.41 66H0v-2h8.59L32 40.59V0h2v39.8zM2 300.1a5 5 0 0 1 3.9 3.9H3.83A3 3 0 0 0 0 302.17V256h18v48h-2v-46H2v42.1zM34 241v63h-2v-62H0v-2h34v1zM17 18H0v-2h16V0h2v18h-1zm273-2h14v2h-16V0h2v16zm-32 273v15h-2v-14h-14v14h-2v-16h18v1zM0 92.1A5.02 5.02 0 0 1 6 97a5 5 0 0 1-6 4.9v-2.07a3 3 0 1 0 0-5.66V92.1zM80 272h2v32h-2v-32zm37.9 32h-2.07a3 3 0 0 0-5.66 0h-2.07a5 5 0 0 1 9.8 0zM5.9 0A5.02 5.02 0 0 1 0 5.9V3.83A3 3 0 0 0 3.83 0H5.9zm294.2 0h2.07A3 3 0 0 0 304 3.83V5.9a5 5 0 0 1-3.9-5.9zm3.9 300.1v2.07a3 3 0 0 0-1.83 1.83h-2.07a5 5 0 0 1 3.9-3.9zM97 100a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-48 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 96a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-144a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-96 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm96 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-32 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM49 36a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-32 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM33 68a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 240a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm80-176a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm112 176a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17 180a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17 84a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'%3E%3C/path%3E%3C/svg%3E");
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        skyMilk: "#0f0546",
+                        candy: "#247bff",
+                        vampire: "#ff25cf",
+                        rush: "#4A1CFF",
+                        darkOcean: "#080f2f",
+                        veryDark: "#020315"
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body id="bg-svg" class="rubik-regular">
+
+    <!-- NAVBAR SIDEBAR -->
+    <div class="w-full h-auto flex justify-between items-center p-3 bg-gradient-to-r from-skyMilk to-candy">
+        <div class="flex justify-start items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-9 text-white bg-cyan-500 rounded-full p-1">
+                <path d="M12.378 1.602a.75.75 0 0 0-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03ZM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 0 0 .372-.648V7.93ZM11.25 22.18v-9l-9-5.25v8.57a.75.75 0 0 0 .372.648l8.628 5.033Z" />
+            </svg>
+            <span class="rubik-semibold text-xl bg-clip-text text-transparent bg-gradient-to-r from-candy to-rush">Portofolio</span>
+        </div>
+        <div class="hidden md:flex md:justify-start md:items-center md:gap-5 md:mr-5">
+            <a href="#" class="text-white rubik-medium hover:text-rush-200 text-lg hover:-translate-y-[2px] transition-all">Home</a>
+            <a href="#" class="text-white rubik-medium hover:text-rush-200 text-lg hover:-translate-y-[2px] transition-all">About</a>
+            <a href="#" class="text-white rubik-medium hover:text-rush-200 text-lg hover:-translate-y-[2px] transition-all">Skills</a>
+            <a href="#" class="text-white rubik-medium hover:text-rush-200 text-lg hover:-translate-y-[2px] transition-all">Contact</a>
+        </div>
+        <div x-data="{ openSideBar: false }" class="flex justify-center items-center md:hidden">
+            <div @click="openSideBar = !openSideBar">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 text-white hover:rotate-180 hover:text-rush-800 transition-all duration-700 ease-in-out">
+                    <path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                </svg>
+            </div>
+
+            <div x-show="openSideBar"
+                x-transition:enter="transition-opacity duration-500 ease-in-out"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-50"
+                x-transition:leave="transition-opacity duration-500 ease-in-out"
+                x-transition:leave-start="opacity-50"
+                x-transition:leave-end="opacity-0"
+                class="fixed top-0 left-0 h-full w-full bg-slate-950 opacity-50 z-10 inset-0"></div>
+
+            <div x-show="openSideBar"
+                @click.outside="openSideBar = false"
+                x-transition:enter="transition-transform duration-500 ease-in-out"
+                x-transition:enter-start="-translate-x-full"
+                x-transition:enter-end="translate-x-0"
+                x-transition:leave="transition-transform duration-500 ease-in-out"
+                x-transition:leave-start="translate-x-0"
+                x-transition:leave-end="-translate-x-full"
+                class="fixed py-8 px-3 top-0 left-0 h-full w-[278px] bg-gradient-to-b from-slate-900 to-blue-950 z-20">
+                <div class="w-full flex items-center justify-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-violet-400">
+                        <path fill-rule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-lg text-white rubik-bold">Valerie Attila Al-Fath</span>
+                </div>
+
+                <div class="w-full h-[1.5px] mt-3 mb-5 rounded-full bg-cyan-700"></div>
+
+                <h1 class="text-white rubik-semibold text-md my-3">Menu</h1>
+                <div class="flex flex-col justify-start items-start gap-2">
+                    <a href="#" class="w-full">
+                        <div @click="openSideBar = false" class="flex items-center w-full rounded-lg justify-start gap-3 px-3 py-2 hover:rounded-lg hover:bg-rush-300/50 hover:shadow-xl transition-all duration-600 ease-in-out">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-blue-300">
+                                <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                                <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                            </svg>
+                            <span class="text-md rubik-medium text-white">Home</span>
+                        </div>
+                    </a>
+                    <a href="#about" class="w-full">
+                        <div @click="openSideBar = false" class="flex items-center w-full rounded-lg justify-start gap-3 px-3 py-2 hover:rounded-lg hover:bg-rush-300/50 hover:shadow-xl transition-all duration-600 ease-in-out">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-blue-300">
+                                <path fill-rule="evenodd" d="M4.5 9.75a6 6 0 0 1 11.573-2.226 3.75 3.75 0 0 1 4.133 4.303A4.5 4.5 0 0 1 18 20.25H6.75a5.25 5.25 0 0 1-2.23-10.004 6.072 6.072 0 0 1-.02-.496Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-md rubik-medium text-white">About Me</span>
+                        </div>
+                    </a>
+
+                    <a href="#skill" class="w-full">
+                        <div @click="openSideBar = false" class="flex items-center w-full rounded-lg justify-start gap-3 px-3 py-2 hover:rounded-lg hover:bg-rush-300/50 hover:shadow-xl transition-all duration-600 ease-in-out">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-blue-300">
+                                <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-md rubik-medium text-white">Skills</span>
+                        </div>
+                    </a>
+
+                    <a href="#contact" class="w-full">
+                        <div @click="openSideBar = false" class="flex items-center w-full rounded-lg justify-start gap-3 px-3 py-2 hover:rounded-lg hover:bg-rush-300/50 hover:shadow-xl transition-all duration-600 ease-in-out">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-blue-300">
+                                <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
+                                <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+                            </svg>
+                            <span class="text-md rubik-medium text-white">Contact</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+
+    <div class="w-full h-auto overflow-hidden">
+
+        <div data-aos="fade-up" data-aos-duration="1000" class="shadow-lg shadow-blue-800 backdrop-blur-sm mx-6 mt-[8rem] mb-[5rem] flex flex-col justify-start items-start rounded-lg border border-candy p-4 hover:shadow-lg bg-blue-950/75 transition-all duration-[700ms] ease-in-out hover:shadow-rush-400">
+            <h1 id="namaAuthor" class="text-4xl text-white rubik-extrabold">Hello, I'm <span class="text-5xl monoton-regular bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-400">VALERIE</span></h1>
+            <p id="subAuthor" class="text-md rubik-semibold text-gray-200 mb-8">
+                Programmer & Web Designer
+            </p>
+            <p id="deskripsi" class="text-sm rubik-thin text-slate-200 text-wrap">
+                I am a student in the field of web design and programming, I study at SMK Multi Karya, Medan. If there is a need, you can contact me via <b class="rubik-medium">email</b>. I am already quite an expert in the fields of design and programming. greetings from me.
+            </p>
+            <br />
+
+            <div class="flex justify-end items-center gap-4">
+                <a href="https://github.com/ValerieAttila09/" class="rounded-full bg-slate-200 p-1 border border-candy">
+                    <img class="" src="images/github.png" height="20" width="20" alt="" />
+                </a>
+                <a href="https://www.instagram.com/kurang_handal?igsh=MTcxbnFoc212cDZxdA==" class=" bg-slate-200 rounded-full p-1 border border-candy">
+                    <img class="" src="images/instagram.png" height="20" width="20" alt="" />
+                </a>
+            </div>
+
+        </div>
+
+        <div id="next" class="size-8 opacity-0 mx-auto text-center rounded-full bg-candy p-1 hover:scale-105 hover:shadow-md transition-all duration-500 ease-in-out">
+            <a href="#about">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-white">
+                    <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v16.19l6.22-6.22a.75.75 0 1 1 1.06 1.06l-7.5 7.5a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 1 1 1.06-1.06l6.22 6.22V3a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                </svg>
+            </a>
+        </div>
+
+        <br />
+        <br />
+        <br />
+
+        <div class="flex items-center justify-between">
+            <div class="w-1 h-[18.7rem] rounded-tr-md rounded-br-md bg-blue-400 shadow-xl shadow-blue-700 text-transparent">
+                .
+            </div>
+            <img class="translate-x-20 shadow-xl shadow-blue-800 my-10 rounded-xl" src="images/home.jpg" width="400" alt="" />
+        </div>
+    </div>
+
+
+
+    <div class="w-full h-[27rem] bg-gradient-to-t from-skyMilk to-transparent"></div>
+    <div class="h-auto w-full bg-gradient-to-b from-skyMilk to-darkOcean overflow-hidden">
+        <div data-aos="fade-right" data-aos-duration="800" class="flex items-center">
+            <div class="min-w-[370px] absolute rounded-xl shadow-lg shadow-blue-700 -translate-x-7 translate-y-8 z-1 bg-blue-400/25 h-[537px] border border-candy text-transparent">
+                .
+            </div>
+            <div class="min-w-[350px] absolute rounded-xl shadow-md shadow-blue-700 -translate-x-7 translate-y-12 z-2 bg-rush-400/50 h-[467px] border border-candy text-transparent">
+                .
+            </div>
+            <img class="rounded-lg -translate-x-20 border border-candy shadow-lg shadow-blue-700" src="images/about.jpg" width="360" alt="" />
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+        <div id="about" class="flex items-center gap-2">
+            <div data-aos="fade-left" data-aos-duration="900" data-aos-delay="50" class="w-full -translate-x-2 h-2 bg-sky-400 rounded-md text-transparent">
+                .
+            </div>
+            <div data-aos="fade-left" data-aos-duration="900" data-aos-delay="100" class="min-w-[120px] translate-x-3 h-2 bg-blue-300 rounded-md text-transparent">
+                .
+            </div>
+        </div>
+        <div class="flex items-center gap-2 mt-2">
+            <div data-aos="fade-right" data-aos-duration="900" data-aos-delay="150" class="w-full h-2 -translate-x-3 bg-rush rounded-md text-transparent">
+                .
+            </div>
+            <div data-aos="fade-right" data-aos-duration="900" data-aos-delay="200" class="min-w-[280px] translate-x-3 h-2 bg-cyan-400 rounded-md text-transparent">
+                .
+            </div>
+        </div>
+        <div data-aos="fade-left" data-aos-duration="900" data-aos-delay="250" class="min-w-[280px] translate-x-8 mt-2 h-2 rounded-md bg-blue-300 text-transparent">
+            .
+        </div>
+        <div data-aos="fade-left" data-aos-duration="900" data-aos-delay="300" class="min-w-[329px] h-auto flex mt-2 justify-start items-center rounded-full p-2 bg-gradient-to-r from-transparent translate-x-12 to-blue-950">
+            <span class="text-5xl text-white rubik-bold">About Me</span>
+        </div>
+        <div class="flex items-center gap-2 mt-2">
+            <div data-aos="fade-right" data-aos-duration="900" data-aos-delay="350" class="w-full h-2 -translate-x-3 bg-blue-300 rounded-md text-transparent">
+                .
+            </div>
+            <div data-aos="fade-right" data-aos-duration="900" data-aos-delay="400" class="min-w-[80px] translate-x-3 h-2 bg-cyan-400 rounded-md text-transparent">
+                .
+            </div>
+        </div>
+        <div class="flex items-center justify-end gap-2 mt-2">
+            <div data-aos="fade-left" data-aos-duration="900" data-aos-delay="450" class="w-3/4 h-2 translate-x-3 bg-blue-400 rounded-md text-transparent">
+                .
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <div class="flex items-center">
+            <div class="w-[4rem] p-1 -translate-x-1 h-[21rem] flex justify-center items-center">
+                <div class="-rotate-90 text-xl text-white rubik-bold text-center">
+                    General Information
+                </div>
+            </div>
+            <div class="w-full p-2 translate-x-1 h-[auto] rounded-md shadow-lg shadow-rush-400 border border-4 border-double border-candy">
+                <div class="rubik-thin text-gray-200">
+                    <span class="text-5xl float-left monoton-regular">L</span>
+                    <p id="generalInfo">
+                        orem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate facilisis metus at ultrices. Proin congue purus at justo maximus sagittis. Nulla eu aliquet ex. Fusce eget rutrum neque, eu iaculis erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque lobortis, tellus eget posuere ornare, nibh elit ultrices nulla, vehicula hendrerit orci felis ut ligula. Suspendisse potenti. Maecenas ut ornare ante, sit amet hendrerit velit.
+                    </p>
+                </div>
+            </div>
+            <br />
+        </div>
+
+        <br />
+
+        <div class="p-6 border border-4 border-double border-candy border-r-0 border-l-0">
+            <h2 class="text-2xl rubik-bold flex justify-start items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 text-blue-500">
+                    <path fill-rule="evenodd" d="M9.315 7.584C12.195 3.883 16.695 1.5 21.75 1.5a.75.75 0 0 1 .75.75c0 5.056-2.383 9.555-6.084 12.436A6.75 6.75 0 0 1 9.75 22.5a.75.75 0 0 1-.75-.75v-4.131A15.838 15.838 0 0 1 6.382 15H2.25a.75.75 0 0 1-.75-.75 6.75 6.75 0 0 1 7.815-6.666ZM15 6.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" clip-rule="evenodd" />
+                    <path d="M5.26 17.242a.75.75 0 1 0-.897-1.203 5.243 5.243 0 0 0-2.05 5.022.75.75 0 0 0 .625.627 5.243 5.243 0 0 0 5.022-2.051.75.75 0 1 0-1.202-.897 3.744 3.744 0 0 1-3.008 1.51c0-1.23.592-2.323 1.51-3.008Z" />
+                </svg>
+                <span class="text-white">Study Timeline</span>
+            </h2>
+            <br />
+            <br />
+            <ol class="relative border-s border-rush-400">
+                <li class="mb-10 ms-6">
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-slate-900 rounded-full -start-3 ring-8 ring-slate-900">
+                        <svg class="size-4 text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                        </svg>
+                    </span>
+                    <h3 class="flex items-center rubik-bold mb-1 text-lg font-semibold text-white">PHP <img class="mx-3" width="32" src="images/php.svg.png" alt="" /> <span class="bg-gradient-to-r from-rush-500 to-blue-400 text-blue-200 text-sm font-medium me-2 px-2.5 py-0.5 rounded-md ms-3">Latest</span></h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-slate-500">Started on November 13rd, 2024</time>
+                    <p class="mb-4 rubik-regular font-normal text-slate-100">
+                        Aliquam dignissim, purus at congue scelerisque, justo massa tincidunt mi, in luctus urna eros eget mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                    </p>
+                </li>
+                <li class="mb-10 ms-6">
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-slate-900 rounded-full -start-3 ring-8 ring-slate-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-blue-500">
+                            <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" />
+                        </svg>
+                    </span>
+                    <h3 class="mb-1 text-lg flex rubik-bold items-center gap-4 font-semibold text-white">
+                        <span>HTML, CSS & JS</span>
+                        <div class="flex items-center gap-3 ml-3">
+                            <img class="size-6" src="images/html.png" alt="" />
+                            <img class="size-5" src="images/css.svg.png" alt="" />
+                            <img class="size-5" src="images/js.png" alt="" />
+                        </div>
+                    </h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-500">Started on December 2nd, 2023</time>
+                    <p class="rubik-regular font-normal text-slate-100">
+                        Pellentesque in viverra tellus, quis pellentesque elit. Suspendisse tempus faucibus pulvinar. Pellentesque nec hendrerit diam. Aenean bibendum quam ac dolor maximus pharetra.
+                    </p>
+                </li>
+                <li class="ms-6">
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-slate-900 rounded-full -start-3 ring-8 ring-slate-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-blue-500">
+                            <path fill-rule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z" clip-rule="evenodd" />
+                            <path fill-rule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375Zm9.586 4.594a.75.75 0 0 0-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 0 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.116-.062l3-3.75Z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                    <h3 class="mb-1 rubik-bold flex items-center gap-4 text-lg font-semibold text-white">
+                        <span>Python</span>
+                        <img class="size-6" src="images/python.svg.png" alt="" />
+                    </h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-500">Started on August 27th, 2022</time>
+                    <p class="rubik-regular font-normal text-slate-100">
+                        Morbi vestibulum pulvinar magna non tincidunt. Fusce malesuada aliquam tellus, quis tincidunt felis congue non. Maecenas ultricies, quam nec porta luctus, libero nulla blandit mauris, vitae euismod tellus ex quis nisl.
+                    </p>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="overflow-hidden w-full flex flex-col justify-end h-[64rem] bg-gradient-to-t from-veryDark to-darkOcean text-transparent">
+        <div id="skill" class="flex justify-center items-center w-full p-5">
+            <blockquote>
+                <h1 class="text-slate-100 rubik-regular"><i>“Ngoding Itu Enak Kalau Ditambah Framework & Library nya.”</i></h1>
+                <div class="w-full flex justify-center items-center">
+                    <div id="animateLine" class="w-[0%] h-[3px] shadow-xl shadow-blue-700 rounded-full bg-sky-300"></div>
+                </div>
+            </blockquote>
+        </div>
+        <div data-aos="fade-right" data-aos-duration="800" class="mb-[14rem] flex flex-row-reverse items-center justify-between">
+            <div class="w-1 h-[17.7rem] rounded-tl-md rounded-bl-md bg-rush-950 text-transparent">
+                .
+            </div>
+            <img class="-translate-x-20 shadow-xl shadow-blue-700 my-10 rounded-xl" src="images/skills.jpg" width="400" alt="" />
+        </div>
+
+        <div class="flex items-center gap-2">
+            <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="50" class="w-full -translate-x-2 h-2 bg-sky-200 rounded-md text-transparent">
+                .
+            </div>
+            <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="100" class="min-w-[120px] translate-x-3 h-2 bg-blue-300 rounded-md text-transparent">
+                .
+            </div>
+        </div>
+        <div class="flex items-center gap-2 mt-2">
+            <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="150" class="w-full h-2 -translate-x-3 bg-teal-300 rounded-md text-transparent">
+                .
+            </div>
+            <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="200" class="min-w-[280px] translate-x-3 h-2 bg-sky-300 rounded-md text-transparent">
+                .
+            </div>
+        </div>
+        <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="250" class="min-w-[280px] translate-x-8 mt-2 h-2 rounded-md bg-blue-300 text-transparent">
+            .
+        </div>
+        <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="300" class="min-w-[329px] h-auto flex mt-2 justify-end items-center p-5 bg-gradient-to-r from-blue-300 -translate-x-12 to-transparent">
+            <span class="text-xl text-white rubik-bold text-end">Mastery of Programming and skills</span>
+        </div>
+        <div class="flex items-center gap-2 mt-2">
+            <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="350" class="w-full h-2 -translate-x-3 bg-cyan-300 rounded-md text-transparent">
+                .
+            </div>
+            <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="400" class="min-w-[180px] translate-x-3 h-2 bg-gradient-to-r from-blue-300 to-cyan-400 rounded-md text-transparent">
+                .
+            </div>
+        </div>
+        <div class="flex items-center justify-end gap-2 mt-2">
+            <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="450" class="w-3/4 h-2 translate-x-3 bg-blue-300 rounded-md text-transparent">
+                .
+            </div>
+        </div>
+    </div>
+    <div class="w-full grid lg:grid-cols-2 gap-10 p-4 bg-veryDark">
+        <div class="flex flex-col items-center justify-center w-full max-w-md mx-auto">
+            <div class="mx-auto flex items-center justify-center rounded-full p-2 bg-slate-900/75 translate-y-12">
+                <i style="font-size: 5rem; color: #FF5600;" class='bx bxl-html5'></i>
+            </div>
+            <div class="w-full h-64 bg-gray-900 bg-center bg-cover rounded-lg shadow-md" style="background-image: url('images/htmlPic.jpg')"></div>
+
+            <div x-data="{openhtml: false}" class="w-56 -mt-10 overflow-hidden bg-slate-950 rounded-lg shadow-lg md:w-64">
+                <h3 class="py-2 font-bold tracking-wide text-center text-gray-100 uppercase">HTML</h3>
+                <div class="flex items-center justify-between px-3 py-2 bg-gray-800">
+                    <span class="font-bold text-gray-100">89%</span>
+                    <button @click="openhtml = !openhtml" class="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-gray-900 rounded hover:bg-gray-700 focus:bg-gray-700 focus:outline-none">Detail</button>
+                    <div x-show="openhtml"
+                        x-transition:enter="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-50"
+                        x-transition:leave="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:leave-start="opacity-50"
+                        x-transition:leave-end="opacity-0"
+                        class="fixed h-full w-full inset-0 opacity-50 z-20 bg-slate-900"></div>
+                    <div x-show="openhtml"
+                        x-transition:enter="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        @click.outside="openhtml = false"
+                        class="fixed overflow-hidden inset-0 lg:inset-x-5 lg:inset-y-[220px] z-30 bg-slate-800 md:rounded-xl">
+                        <div class="w-full h-auto p-3 overflow-hidden flex justify-between items-center gap-3">
+                            <h1 class="rubik-bold text-xl text-slate-100">HTML Study Progress</h1>
+                            <div @click="openhtml = false" class="p-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-slate-100">
+                                    <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-full h-[1px] bg-candy/50 my-2"></div>
+                        <div class="p-3 container">
+                            <div class="w-full">
+                                <span class="text-center text-gray-100 text-xl rubik-bold bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500">HTML CODING ACTIVITY 2024</span>
+                            </div>
+                            <canvas class="w-full" id="htmlActivity"></canvas>
+                            <br />
+                            <div class="p-2">
+                                <p class="rubik-thin text-md text-slate-300">
+                                    Fusce malesuada aliquam tellus, quis tincidunt felis congue non. Maecenas ultricies, quam nec porta luctus, libero nulla blandit mauris, vitae euismod tellus ex quis nisl. Aliquam dapibus tellus dui, quis aliquet mauris auctor a.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col items-center justify-center w-full max-w-md mx-auto">
+            <div class="mx-auto flex items-center justify-center rounded-full p-2 bg-slate-900/75 translate-y-12">
+                <i style="font-size: 5rem; color: #008EFF;" class='bx bxl-css3'></i>
+            </div>
+            <div class="w-full h-64 bg-gray-300 bg-center bg-cover rounded-lg shadow-md" style="background-image: url('images/cssPic.jpg')"></div>
+            <div x-data="{opencss: false}" class="w-56 -mt-10 overflow-hidden bg-slate-900 rounded-lg shadow-lg md:w-64">
+                <h3 class="py-2 font-bold tracking-wide text-center text-gray-200 uppercase">CSS</h3>
+                <div class="flex items-center justify-between px-3 py-2 bg-gray-800">
+                    <span class="font-bold text-gray-200">82%</span>
+                    <button @click="opencss = !opencss" class="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-gray-900 rounded hover:bg-gray-700 dark:hover:bg-gray-600 focus:bg-gray-700 focus:outline-none">Detail</button>
+
+                    <div x-show="opencss"
+                        x-transition:enter="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-50"
+                        x-transition:leave="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:leave-start="opacity-50"
+                        x-transition:leave-end="opacity-0"
+                        class="fixed h-full w-full inset-0 opacity-50 z-20 bg-slate-900"></div>
+                    <div x-show="opencss"
+                        x-transition:enter="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        @click.outside="opencss = false"
+                        class="fixed overflow-hidden inset-0 md:inset-x-5 md:inset-y-[130px] z-30 bg-gradient-to-b from-slate-900 to-blue-950 md:rounded-xl">
+                        <div class="w-full h-auto p-3 overflow-hidden flex justify-between items-center gap-3">
+                            <h1 class="rubik-bold text-xl text-slate-100">CSS Coding</h1>
+                            <div @click="opencss = false" class="p-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-slate-100">
+                                    <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-full h-[1px] bg-candy/50 my-2"></div>
+                        <div class="p-3 container ">
+                            <div class="w-full">
+                                <h1 class="text-center text-gray-200 text-xl rubik-bold bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center gap-5">
+                                    <span>Tailwind CSS</span>
+                                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-rush-400">
+                                        <i style="font-size: 3rem;" class='bx bxl-tailwind-css'></i>
+                                    </span>
+                                </h1>
+                            </div>
+                            <div class="p-1 relative">
+                                <img class="rounded-lg w-full" src="images/preview.png" alt="" />
+                                <div class="absolute p-2 flex justify-end items-end -z-5  w-64 h-32 translate-x-8 -translate-y-8 rounded-tr-0 rounded-bl-md rounded-br-xl rounded-tl-2xl bg-gradient-to-br from-slate-800 to-blue-900">
+                                    <a href="https://tailwindcss.com" class="playfair-display-bold px-4 py-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-candy hover:bg-rush border border-t-0 border-l-0 border-r-0 border-blue-300">Read Docs</a>
+                                </div>
+                                <div class="container relative grid mt-[7rem]">
+                                    <p class="rubik-regular text-md text-slate-200 mb-4">
+                                        Tailwind CSS works by scanning all of your HTML files, JavaScript components, and any other templates for class names, generating the corresponding styles and then writing them to a static CSS file.
+                                    </p>
+                                    <p class="rubik-regular text-md text-slate-200">
+                                        It's fast, flexible, and reliable — with zero-runtime.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col items-center justify-center w-full max-w-md mx-auto">
+            <div class="mx-auto flex items-center justify-center rounded-full p-2 bg-slate-900/75 translate-y-12">
+                <i style="font-size: 5rem; color: #FFD900;" class='bx bxl-javascript'></i>
+            </div>
+            <div class="w-full h-64 bg-gray-800 bg-center bg-cover rounded-lg shadow-md" style="background-image: url('images/jsPic.jpg')"></div>
+            <div x-data="{openjs: false}" class="w-56 -mt-10 overflow-hidden bg-slate-900 rounded-lg shadow-lg md:w-64">
+                <h3 class="py-2 font-bold tracking-wide text-center text-gray-200 uppercase">JavaScript</h3>
+                <div class="flex items-center justify-between px-3 py-2 bg-gray-800">
+                    <span class="font-bold text-gray-200">59%</span>
+                    <button @click="openjs = !openjs" class="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-gray-900 rounded hover:bg-gray-700 focus:bg-gray-700 focus:outline-none">Detail</button>
+
+                    <div x-show="openjs"
+                        x-transition:enter="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-50"
+                        x-transition:leave="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:leave-start="opacity-50"
+                        x-transition:leave-end="opacity-0"
+                        class="fixed h-full w-full inset-0 opacity-50 z-20 bg-slate-900"></div>
+                    <div x-show="openjs"
+                        x-transition:enter="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        @click.outside="openjs = false"
+                        class="fixed overflow-hidden inset-0 z-30 bg-slate-800">
+                        <div class="w-full h-auto p-3 overflow-hidden flex justify-between items-center gap-3">
+                            <h1 class="rubik-bold text-xl text-slate-100">JavaScript Study Progress</h1>
+                            <div @click="openjs = false" class="p-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-slate-100">
+                                    <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-full h-[1px] bg-candy/50 my-2"></div>
+                        <div class="p-3 container">
+                            <h1 class="text-lg rubik-bold text-gray-200">Javascript Framework</h1>
+                            <br />
+                            <p class="rubik-regular text-slate-200">
+                                The JavaScript frameworks that I often use when building or creating websites include :
+                            </p>
+                            <br />
+                            <section class="container px-2 mx-auto">
+                                <div class="flex flex-col">
+                                    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                                            <div class="overflow-hidden border border-gray-700 rounded-lg">
+                                                <table class="min-w-full divide-y divide-gray-700">
+                                                    <thead class="bg-gray-950">
+                                                        <tr>
+                                                            <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-300">
+                                                                No
+                                                            </th>
+                                                            <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-300">
+                                                                Framework
+                                                            </th>
+                                                            <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-300">
+                                                                Made by
+                                                            </th>
+                                                            <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-300">
+                                                                Documentation
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="bg-slate-900 divide-y divide-gray-700">
+                                                        <tr>
+                                                            <td class="text-sm p-3 text-center text-gray-300 whitespace-nowrap">1</td>
+                                                            <td class="p-3 flex justify-start items-center gap-1 text-sm font-medium text-gray-300 whitespace-nowrap">
+                                                                <img class="rounded-full" src="images/alpine.js.png" height="35" width="35" alt="" />
+                                                                <h3 class="text-md rubik-medium text-white">Alpine.js</h3>
+                                                            </td>
+                                                            <td class="text-sm text-start p-3 text-gray-300 whitespace-nowrap">
+                                                                <div class="flex items-center text-md rubik-medium text-white">
+                                                                    Caleb Porzio
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-sm p-3 text-start whitespace-nowrap text-gray-300">
+                                                                <div class="flex items-center justify-start">
+                                                                    <a href="#" class="rubik-regular text-blue-300">See Alpine.js Documentation</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-sm p-3 text-center text-gray-300 whitespace-nowrap">2</td>
+                                                            <td class="flex p-3 text-start justify-start items-center gap-1 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                                                <img class="rounded-full" src="images/Chart.js_logo.svg.png" height="35" width="35" alt="" />
+                                                                <h3 class="text-md rubik-medium text-white">Chart.js</h3>
+                                                            </td>
+                                                            <td class="text-sm p-3 text-start text-gray-300 whitespace-nowrap">
+                                                                <div class="flex items-center text-md rubik-medium text-white">
+                                                                    Nick Downie
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-sm p-3 text-start text-gray-300 whitespace-nowrap">
+                                                                <div class="flex items-center justify-start">
+                                                                    <a href="#" class="rubik-regular text-blue-300">See Chart.js Documentation</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-sm p-3 text-center text-gray-300 whitespace-nowrap">3</td>
+                                                            <td class="flex p-3 text-start justify-start items-center gap-1 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                                                <h3 class="text-md rubik-medium text-white">particle.js</h3>
+                                                            </td>
+                                                            <td class="text-sm p-3 text-start text-gray-300 whitespace-nowrap">
+                                                                <div class="flex items-center text-md rubik-medium text-white">
+                                                                    Vincent Garreau
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-sm p-3 text-start whitespace-nowrap">
+                                                                <div class="flex items-center justify-start">
+                                                                    <a href="#" class="rubik-regular text-blue-300">See particle.js Documentation</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-sm p-3 text-center text-gray-300 whitespace-nowrap">4</td>
+                                                            <td class="flex p-3 text-start justify-start items-center gap-1 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                                                <img class="rounded-full" src="images/icon-256x256.png" height="35" width="35" alt="" />
+                                                                <h3 class="text-md rubik-medium text-white">AOS</h3>
+                                                            </td>
+                                                            <td class="text-sm p-3 text-start text-gray-300 whitespace-nowrap">
+                                                                <div class="flex items-center text-md rubik-medium text-white">
+                                                                    Chris Gustin
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-sm p-3 whitespace-nowrap">
+                                                                <div class="flex items-center justify-start">
+                                                                    <a href="#" class="rubik-regular text-blue-300">See AOS Documentation</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col items-center justify-center w-full max-w-md mx-auto">
+            <div class="mx-auto flex items-center justify-center rounded-full p-2 bg-slate-900/75 translate-y-12">
+                <i style="font-size: 5rem; color: #00C3FF;" class='bx bxl-python'></i>
+            </div>
+            <div class="w-full h-64 bg-gray-700 bg-center bg-cover rounded-lg shadow-md" style="background-image: url('images/pythonPic.jpg')"></div>
+            <div x-data="{openPython: false}" class="w-56 -mt-10 overflow-hidden bg-slate-900 rounded-lg shadow-lg md:w-64">
+                <h3 class="py-2 font-bold tracking-wide text-center text-gray-200 uppercase">Python</h3>
+                <div class="flex items-center justify-between px-3 py-2 bg-gray-800">
+                    <span class="font-bold text-gray-200">62%</span>
+                    <button @click="openPython = !openPython" class="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-gray-900 rounded hover:bg-gray-700 focus:bg-gray-700 focus:outline-none">Detail</button>
+                    <div x-show="openPython"
+                        x-transition:enter="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-50"
+                        x-transition:leave="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:leave-start="opacity-50"
+                        x-transition:leave-end="opacity-0"
+                        class="fixed h-full w-full inset-0 opacity-50 z-20 bg-slate-900"></div>
+                    <div x-show="openPython"
+                        x-transition:enter="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        @click.outside="openPython = false"
+                        class="fixed overflow-hidden inset-0 z-30 bg-slate-800">
+                        <div class="w-full h-auto p-3 overflow-hidden flex justify-between items-center gap-3">
+                            <h1 class="rubik-bold text-xl text-slate-100">Python Study Progress</h1>
+                            <div @click="openPython = false" class="p-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-slate-100">
+                                    <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-full h-[1px] bg-candy/50 my-2"></div>
+                        <div class="p-3 container">
+                            <p class="text-gray-300 rubik-regular">
+                                Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.
+                            </p>
+                            <p class="text-gray-300 rubik-regular my-1">
+                                I have studied the Python programming language since I was in grade 8 to grade 9, I have experience in Basic Python and Python Object Orientation Programming.
+                            </p>
+                            <br>
+                            <h3 class="text-lg rubik-medium text-gray-200 mt-3 mb-1">My Python Project</h3>
+                            <div class="w-full p-3 grid grid-cols-2 gap-3">
+                                <div class="w-full mx-auto p-4 rounded-lg shadow-xl bg-slate-900 flex justify-start items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-slate-100">
+                                        <path d="M11.584 2.376a.75.75 0 0 1 .832 0l9 6a.75.75 0 1 1-.832 1.248L12 3.901 3.416 9.624a.75.75 0 0 1-.832-1.248l9-6Z" />
+                                        <path fill-rule="evenodd" d="M20.25 10.332v9.918H21a.75.75 0 0 1 0 1.5H3a.75.75 0 0 1 0-1.5h.75v-9.918a.75.75 0 0 1 .634-.74A49.109 49.109 0 0 1 12 9c2.59 0 5.134.202 7.616.592a.75.75 0 0 1 .634.74Zm-7.5 2.418a.75.75 0 0 0-1.5 0v6.75a.75.75 0 0 0 1.5 0v-6.75Zm3-.75a.75.75 0 0 1 .75.75v6.75a.75.75 0 0 1-1.5 0v-6.75a.75.75 0 0 1 .75-.75ZM9 12.75a.75.75 0 0 0-1.5 0v6.75a.75.75 0 0 0 1.5 0v-6.75Z" clip-rule="evenodd" />
+                                        <path d="M12 7.875a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z" />
+                                    </svg>
+                                    <span class="text-gray-200 rubik-semibold">CRUD Book Library</span>
+                                </div>
+                                <div class="w-full mx-auto p-4 rounded-lg shadow-xl bg-slate-900 flex justify-start items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-slate-100">
+                                        <path fill-rule="evenodd" d="M6.32 1.827a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V19.5a3 3 0 0 1-3 3H6.75a3 3 0 0 1-3-3V4.757c0-1.47 1.073-2.756 2.57-2.93ZM7.5 11.25a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H8.25a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H8.25Zm-.75 3a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H8.25a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V18a.75.75 0 0 0-.75-.75H8.25Zm1.748-6a.75.75 0 0 1 .75-.75h.007a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.007a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.335.75.75.75h.007a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75h-.007Zm-.75 3a.75.75 0 0 1 .75-.75h.007a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.007a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.335.75.75.75h.007a.75.75 0 0 0 .75-.75V18a.75.75 0 0 0-.75-.75h-.007Zm1.754-6a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75h-.008Zm-.75 3a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V18a.75.75 0 0 0-.75-.75h-.008Zm1.748-6a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75h-.008Zm-8.25-6A.75.75 0 0 1 8.25 6h7.5a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-7.5a.75.75 0 0 1-.75-.75v-.75Zm9 9a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-2.25Z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-gray-200 rubik-semibold">Calculator</span>
+                                </div>
+                                <div class="w-full mx-auto p-4 rounded-lg shadow-xl bg-slate-900 flex justify-start items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-slate-100">
+                                        <path fill-rule="evenodd" d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 18.375V5.625ZM21 9.375A.375.375 0 0 0 20.625 9h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5ZM10.875 18.75a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5ZM3.375 15h7.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375Zm0-3.75h7.5a.375.375 0 0 0 .375-.375v-1.5A.375.375 0 0 0 10.875 9h-7.5A.375.375 0 0 0 3 9.375v1.5c0 .207.168.375.375.375Z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-gray-200 rubik-semibold">Integer Converter</span>
+                                </div>
+                                <div class="w-full mx-auto p-4 rounded-lg shadow-xl bg-slate-900 flex justify-start items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-slate-100">
+                                        <path fill-rule="evenodd" d="M2.25 2.25a.75.75 0 0 0 0 1.5H3v10.5a3 3 0 0 0 3 3h1.21l-1.172 3.513a.75.75 0 0 0 1.424.474l.329-.987h8.418l.33.987a.75.75 0 0 0 1.422-.474l-1.17-3.513H18a3 3 0 0 0 3-3V3.75h.75a.75.75 0 0 0 0-1.5H2.25Zm6.54 15h6.42l.5 1.5H8.29l.5-1.5Zm8.085-8.995a.75.75 0 1 0-.75-1.299 12.81 12.81 0 0 0-3.558 3.05L11.03 8.47a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 1 0 1.06 1.06l2.47-2.47 1.617 1.618a.75.75 0 0 0 1.146-.102 11.312 11.312 0 0 1 3.612-3.321Z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-gray-200 rubik-semibold">Data Demonstration</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col items-center justify-center w-full max-w-md mx-auto">
+            <div class="mx-auto flex items-center justify-center rounded-full p-2 bg-slate-900/75 translate-y-12">
+                <i style="font-size: 5rem; color: #9380FF;" class='bx bxl-php'></i>
+            </div>
+            <div class="w-full h-64 bg-gray-800 bg-center bg-cover rounded-lg shadow-md" style="background-image: url('images/phpPic.jpg')"></div>
+            <div x-data="{openPhp: false}" class="w-56 -mt-10 overflow-hidden bg-slate-900 rounded-lg shadow-lg md:w-64">
+                <h3 class="py-2 font-bold tracking-wide text-center text-gray-200 uppercase">PHP</h3>
+                <div class="flex items-center justify-between px-3 py-2 bg-gray-800">
+                    <span class="font-bold text-gray-200">42%</span>
+                    <button @click="openPhp = !openPhp" class="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-gray-900 rounded hover:bg-gray-700 focus:bg-gray-700 focus:outline-none">Detail</button>
+
+                    <div x-show="openPhp"
+                        x-transition:enter="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-50"
+                        x-transition:leave="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:leave-start="opacity-50"
+                        x-transition:leave-end="opacity-0"
+                        class="fixed h-full w-full inset-0 opacity-50 z-20 bg-slate-900"></div>
+                    <div x-show="openPhp"
+                        x-transition:enter="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-0-100"
+                        x-transition:leave="transition-opacity duration-[570ms] ease-in-out"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        @click.outside="openPhp = false"
+                        class="fixed overflow-hidden inset-0 z-30 bg-slate-800">
+                        <div class="w-full h-auto p-3 overflow-hidden flex justify-between items-center gap-3">
+                            <h1 class="rubik-bold text-xl text-slate-100">PHP Study Progress</h1>
+                            <div @click="openPhp = false" class="p-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-slate-100">
+                                    <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-full h-[1px] bg-candy/50 my-2"></div>
+                        <div class="p-3 container">
+                            <div class="w-full">
+                                <p class="text-gray-200 rubik-regular">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt lorem eu nulla euismod, id luctus elit viverra. Etiam bibendum dui vel mi finibus, eu vulputate ipsum auctor. Aliquam vel ex in nulla euismod scelerisque. Cras in libero ornare, dapibus quam in, sagittis erat. Vivamus lacinia est magna, ut rutrum quam porta non. Sed ultricies quam tortor, scelerisque aliquam lorem varius sed.
+                                </p>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="w-full p-2">
+                                <h3 class="text-lg rubik-semibold text-slate-100">My Projects</h3>
+                                <br />
+                                <div class="w-full bg-slate-900 rounded-lg flex justify-between items-center gap-4">
+                                    <div class="w-[1px] h-[15rem] bg-rush text-transparent">
+                                        .
+                                    </div>
+                                    <div class="w-full">
+                                        <div class="p-2">
+                                            <h2 class="text-slate-200 rubik-semibold">CRUD</h2>
+                                            <p class="text-slate-300 rubik-regular">
+                                                Vivamus blandit urna id pellentesque egestas. Suspendisse sed ex arcu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                                            </p>
+                                        </div>
+                                        <div class="p-2">
+                                            <h2 class="text-slate-200 rubik-semibold">Multi User Login</h2>
+                                            <p class="text-slate-300 rubik-regular">
+                                                Suspendisse dictum viverra sapien, at vestibulum lacus hendrerit eget. In at consectetur ex. Phasellus tempor risus ut nulla vulputate, sed fringilla eros bibendum. Sed volutpat lectus sit amet eleifend molestie. Integer non elit ante.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overflow-hidden w-full flex flex-col justify-end h-[32rem] bg-gradient-to-t from-darkOcean to-veryDark text-transparent">
+        <div id="contact" class="flex items-center gap-2">
+            <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="50" class="w-full -translate-x-2 h-2 bg-blue-300 rounded-md text-transparent">
+                .
+            </div>
+            <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="100" class="min-w-[40px] translate-x-3 h-2 bg-blue-400 rounded-md text-transparent">
+                .
+            </div>
+        </div>
+        <div class="flex items-center gap-2 mt-2">
+            <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="150" class="w-full h-2 -translate-x-3 bg-cyan-300 rounded-md text-transparent">
+                .
+            </div>
+            <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="200" class="min-w-[180px] -translate-x-3 h-2 bg-blue-400 rounded-md text-transparent">
+                .
+            </div>
+        </div>
+        <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="250" class="min-w-[130px] -translate-x-8 mt-2 h-2 rounded-md bg-teal-300 text-transparent">
+            .
+        </div>
+        <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="300" class="w-full h-auto flex mt-2 justify-end items-center p-5 bg-gradient-to-r from-transparent to-blue-600">
+            <span class="text-3xl text-white rubik-bold text-center">Contact</span>
+        </div>
+        <div class="flex items-center gap-2 mt-2">
+            <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="350" class="w-full h-2 -translate-x-3 bg-sky-200 rounded-md text-transparent">
+                .
+            </div>
+            <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="400" class="min-w-[210px] translate-x-3 h-2 bg-gradient-to-r from-blue-300 to-teal-400 rounded-md text-transparent">
+                .
+            </div>
+        </div>
+        <div class="flex items-center justify-end gap-2 mt-2">
+            <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="450" class="w-3/4 h-2 translate-x-3 bg-blue-200 rounded-md text-transparent">
+                .
+            </div>
+        </div>
+    </div>
+    <div class="w-full bg-gradient-to-t from-veryDark to-darkOcean grid gap-[13rem] p-4">
+        <form class="max-w-md">
+            <div class="w-full my-5">
+                <h1 class="text-xl text-slate-100 rubik-semibold">Contact via Email</h1>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="email" name="floating_email" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
+            </div>
+            <div class="grid md:grid-cols-2 md:gap-6">
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" name="floating_first_name" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                    <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First name</label>
+                </div>
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" name="floating_last_name" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                    <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last name</label>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 md:gap-6">
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="floating_phone" id="floating_phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                    <label for="floating_phone" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone number (123-456-7890)</label>
+                </div>
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" name="floating_company" id="floating_company" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="floating_company" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Company (Ex. Google) - Optional</label>
+                </div>
+            </div>
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-all">Submit</button>
+        </form>
+
+    </div>
+    <div class="w-full h-[12rem] bg-veryDark text-transparent">
+        .
+    </div>
+
+    <div class="w-full h-[1px] bg-slate-800 text-transparent">
+        .
+    </div>
+    <footer class="bg-gradient-to-b from-veryDark to-slate-900">
+        <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+            <div class="md:flex md:justify-between">
+                <div class="mb-6 md:mb-0">
+                    <a href="https://flowbite.com/" class="flex items-center">
+                        <img src="images/tailwind.png" class="h-8 me-3" alt="FlowBite Logo" />
+                        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Portofolio</span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                    <div>
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
+                        <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                            <li class="mb-4">
+                                <a href="https://flowbite.com/" class="hover:underline">Flowbite</a>
+                            </li>
+                            <li class="mb-4">
+                                <a href="https://alpinejs.dev/" class="hover:underline">Alpine.js</a>
+                            </li>
+                            <li class="mb-4">
+                                <a href="https://www.chartjs.org/" class="hover:underline">Chart.js</a>
+                            </li>
+                            <li>
+                                <a href="https://tailwindcss.com/" class="hover:underline">Tailwind CSS</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow Me</h2>
+                        <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                            <li class="mb-4">
+                                <a href="https://github.com/ValerieAttila09/" class="hover:underline ">Github</a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/kurang_handal?igsh=MTcxbnFoc212cDZxdA==" class="hover:underline">Instagram</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
+                        <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                            <li class="mb-4">
+                                <a href="#" class="hover:underline">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:underline">Terms &amp; Conditions</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+            <div class="sm:flex sm:items-center sm:justify-between">
+                <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="https://github.com/ValerieAttila09/" class="hover:underline">Valerie Attila Al-Fath™</a>. All Rights Reserved.
+                </span>
+                <div class="flex mt-4 sm:justify-center sm:mt-0">
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 19">
+                            <path fill-rule="evenodd" d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only">Facebook page</span>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 21 16">
+                            <path d="M16.942 1.556a16.3 16.3 0 0 0-4.126-1.3 12.04 12.04 0 0 0-.529 1.1 15.175 15.175 0 0 0-4.573 0 11.585 11.585 0 0 0-.535-1.1 16.274 16.274 0 0 0-4.129 1.3A17.392 17.392 0 0 0 .182 13.218a15.785 15.785 0 0 0 4.963 2.521c.41-.564.773-1.16 1.084-1.785a10.63 10.63 0 0 1-1.706-.83c.143-.106.283-.217.418-.33a11.664 11.664 0 0 0 10.118 0c.137.113.277.224.418.33-.544.328-1.116.606-1.71.832a12.52 12.52 0 0 0 1.084 1.785 16.46 16.46 0 0 0 5.064-2.595 17.286 17.286 0 0 0-2.973-11.59ZM6.678 10.813a1.941 1.941 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.919 1.919 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Zm6.644 0a1.94 1.94 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.918 1.918 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Z" />
+                        </svg>
+                        <span class="sr-only">Discord community</span>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 17">
+                            <path fill-rule="evenodd" d="M20 1.892a8.178 8.178 0 0 1-2.355.635 4.074 4.074 0 0 0 1.8-2.235 8.344 8.344 0 0 1-2.605.98A4.13 4.13 0 0 0 13.85 0a4.068 4.068 0 0 0-4.1 4.038 4 4 0 0 0 .105.919A11.705 11.705 0 0 1 1.4.734a4.006 4.006 0 0 0 1.268 5.392 4.165 4.165 0 0 1-1.859-.5v.05A4.057 4.057 0 0 0 4.1 9.635a4.19 4.19 0 0 1-1.856.07 4.108 4.108 0 0 0 3.831 2.807A8.36 8.36 0 0 1 0 14.184 11.732 11.732 0 0 0 6.291 16 11.502 11.502 0 0 0 17.964 4.5c0-.177 0-.35-.012-.523A8.143 8.143 0 0 0 20 1.892Z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only">Twitter page</span>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only">GitHub account</span>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 0a10 10 0 1 0 10 10A10.009 10.009 0 0 0 10 0Zm6.613 4.614a8.523 8.523 0 0 1 1.93 5.32 20.094 20.094 0 0 0-5.949-.274c-.059-.149-.122-.292-.184-.441a23.879 23.879 0 0 0-.566-1.239 11.41 11.41 0 0 0 4.769-3.366ZM8 1.707a8.821 8.821 0 0 1 2-.238 8.5 8.5 0 0 1 5.664 2.152 9.608 9.608 0 0 1-4.476 3.087A45.758 45.758 0 0 0 8 1.707ZM1.642 8.262a8.57 8.57 0 0 1 4.73-5.981A53.998 53.998 0 0 1 9.54 7.222a32.078 32.078 0 0 1-7.9 1.04h.002Zm2.01 7.46a8.51 8.51 0 0 1-2.2-5.707v-.262a31.64 31.64 0 0 0 8.777-1.219c.243.477.477.964.692 1.449-.114.032-.227.067-.336.1a13.569 13.569 0 0 0-6.942 5.636l.009.003ZM10 18.556a8.508 8.508 0 0 1-5.243-1.8 11.717 11.717 0 0 1 6.7-5.332.509.509 0 0 1 .055-.02 35.65 35.65 0 0 1 1.819 6.476 8.476 8.476 0 0 1-3.331.676Zm4.772-1.462A37.232 37.232 0 0 0 13.113 11a12.513 12.513 0 0 1 5.321.364 8.56 8.56 0 0 1-3.66 5.73h-.002Z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only">Dribbble account</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script type="text/javascript" charset="utf-8">
+        const months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+        const htmlCoding = [3, 8, 7, 4, 5, 6, 8, 9, 7, 4, 6, 8];
+
+        const tempCtx = document.getElementById("htmlActivity").getContext("2d");
+        new Chart(tempCtx, {
+            type: "line",
+            data: {
+                labels: months,
+                datasets: [{
+                    label: "HTML Coding Activity",
+                    data: htmlCoding,
+                    borderColor: "orange",
+                    backgroundColor: "rgba(194, 179, 0, 0.255)",
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="script/script.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
